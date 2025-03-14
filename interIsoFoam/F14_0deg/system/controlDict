@@ -1,0 +1,227 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1812                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+libs          (sixDoFMooring);
+
+application     interFoam;
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         60;
+
+deltaT          0.001;
+
+writeControl    adjustableRunTime;
+
+writeInterval   1;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable yes;
+
+adjustTimeStep  yes;
+
+maxCo           0.5;
+
+maxAlphaCo      0.5;
+
+maxDeltaT       1;
+
+libs
+(
+        "libwaveGeneration.so"
+        "libwaveAbsorption.so"
+        "libsampling.so"
+        "libfieldFunctionObjects.so"
+);
+
+functions
+{
+    gaugesVOF
+    {
+        type    sets;
+        libs ("libsampling.so");
+        writeControl    timeStep;
+        writeInterval   5;
+        setFormat       raw;
+        surfaceFormat   raw;
+        interpolationScheme cellPoint;
+        fields          ( alpha.water );
+        sets
+        (
+             GaugeVOF04
+            {
+                type    midPointAndFace;
+                axis    xyz;
+                start   (6.98 -2.2 -0.3 );
+                end     ( 6.98 -2.2 0.3 );
+            } 
+
+            GaugeVOF06
+            {
+                type    midPointAndFace;
+                axis    xyz;
+               start   (2.74 0.01 -0.3 );
+                end     ( 2.74 0.01 0.3 );
+            } 
+            GaugeVOF07
+            {
+                type    midPointAndFace;
+                axis    xyz;
+               start   (2.24 0.01 -0.3 );
+                end     ( 2.24 0.01 0.3 );
+            } 
+            GaugeVOF08
+            {
+                type    midPointAndFace;
+                axis    xyz;
+               start   (1.74 -0.01 -0.3 );
+                end     ( 1.74 -0.01 0.3 );
+            } 
+            GaugeVOF09
+            {
+                type    midPointAndFace;
+                axis    xyz;
+                start   (6.98 3.8 -0.3 );
+                end     ( 6.98 3.8 0.3 );
+            }
+        GaugeVOF10
+            {
+                type    midPointAndFace;
+                axis    xyz;
+                start   (6.9 -4.55 -0.3 );
+                end     ( 6.9 -4.55 0.3 );
+            }
+        GaugeVOF11
+            {
+                type    midPointAndFace;
+                axis    xyz;
+                start   (11.93 0.04 -0.3 );
+                end     ( 11.93 0.04 0.3 );
+            }
+        );
+    }
+    /* forces
+    {
+        type            forces;
+        libs            ("libforces.so");
+        patches         (floater);
+        rhoInf          1000;
+        log             on;
+        writeControl    timeStep;
+        writeInterval    1;
+        CofR            (10 0 0);
+    }*/
+	// #include "systemCall" */
+
+ /*   stl1
+    {   
+       type            surfaces;
+       libs ("libfieldFunctionObjects.so"); 
+       writeControl   adjustableRunTime;
+       writeInterval   0.1;  
+       surfaceFormat   stl;
+       fields ();  
+       surfaces
+       (   
+           freeSurface
+           {   
+               type        isoSurface;
+               isoField    alpha.water;
+               isoValue    0.5;
+               interpolate true;
+               regularise  false;
+               //zone        zone1;
+               //exposedPatchName walls;
+           }   
+       );  
+       interpolationScheme cellPointFace;
+     } 
+
+    stl2
+    {   
+       type           surfaces;
+       libs ("libfieldFunctionObjects.so"); 
+       writeControl   adjustableRunTime;
+       writeInterval  0.1;  
+       surfaceFormat   stl;
+       fields ();  
+       surfaces
+       (   
+           floater
+           {   
+               type        patch;
+	       patches	   (floatingObject);
+           }   
+       ); 
+       interpolationScheme cellPointFace; 
+     } 
+
+    stl3
+    {   
+       type           surfaces;
+       libs ("libfieldFunctionObjects.so"); 
+       writeControl   adjustableRunTime;
+       writeInterval  0.1;  
+       surfaceFormat   stl;
+       fields ();  
+       surfaces
+       (   
+          waveMaker
+           {   
+               type        patch;
+	       patches	   (waveMaker);
+           }   
+       ); 
+       interpolationScheme cellPointFace; 
+     } 
+    stl4
+    {   
+       type           surfaces;
+       libs ("libfieldFunctionObjects.so"); 
+       writeControl   adjustableRunTime;
+       writeInterval  0.1;  
+       surfaceFormat   stl;
+       fields ();  
+       surfaces
+       (   
+           walls
+           {   
+               type        patch;
+	       patches	   (walls);
+           }   
+       ); 
+       interpolationScheme cellPointFace; 
+     } 
+*/
+
+}
+
+// ************************************************************************* //
