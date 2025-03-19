@@ -1,0 +1,83 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.5                                   |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      environmentalProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+seaLevel	0.00;
+
+// A list of the relaxation zones in the simulation. The parameters are given
+// in <name>Coeffs below.
+relaxationNames (inlet outlet);
+
+// Name to use for initialisation
+initializationName inlet;
+
+// External forcing definition
+externalForcing Grid2Grid;
+
+// Coefficients needed for the external forcing
+Grid2GridCoeffs
+{
+    waveType            Grid2Grid;
+
+    Tsoft               0;
+
+    referencePosition     (-16.95 -14.84 0);
+    refDirection    (1 0 0);
+    refTime         0.0;
+
+    referenceTheta      0;
+
+    Grid2GridInputFileName Grid2Grid.dict;
+}
+
+inletCoeffs
+{
+    waveType externalSource;
+
+    Grid2GridInputFileName Grid2Grid.dict;
+    
+    relaxationZone
+    {
+        relaxationScheme Spatial;
+        relaxationShape  Rectangular;
+    
+        relaxType   INLET;
+        startX      (-10.11 -2.8158 -5);
+        endX        (-2 2.8158 2);
+        orientation      (1.0 0.0 0.0);
+    }
+};
+
+outletCoeffs
+{
+    waveType externalSource;
+
+    Grid2GridInputFileName Grid2Grid.dict;
+
+    relaxationZone
+    {
+        relaxationScheme Spatial;
+        relaxationShape  Rectangular;
+
+        relaxType   OUTLET;
+        startX      (2 -2.8158 -5);
+        endX        (10.11 2.8158 2);
+        orientation      (1.0 0.0 0.0);
+    }
+};
+
+
+
+// ************************************************************************* //

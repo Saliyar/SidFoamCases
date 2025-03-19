@@ -1,0 +1,72 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2206                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version	2.0;
+    format	ascii;
+    class	dictionary;
+    object	waveProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+seaLevel            0;
+
+relaxationNames     ( inlet outlet );
+
+initializationName  inlet;
+
+externalForcing     Grid2Grid;
+
+Grid2GridCoeffs
+{
+    waveType            Grid2Grid;
+
+    Tsoft               0;
+
+    referenceTime       0;
+
+    referencePosition   (-16.95 -14.84 0);
+
+    referenceTheta      0;
+
+    Grid2GridInputFileName Grid2Grid.dict;
+}
+
+inletCoeffs
+{
+    waveType            externalSource;
+
+    relaxationZone
+    {
+        relaxationScheme    Spatial;
+        relaxationShape     Rectangular;
+        relaxType           INLET;
+        startX              ( -10.11 -2.8158 -5 );
+        endX                ( -2 2.8158 2 );
+        orientation         ( 1 0 0 );
+    }
+}
+
+outletCoeffs
+{
+    waveType            externalSource;
+
+    relaxationZone
+    {
+        relaxationScheme    Spatial;
+        relaxationShape     Rectangular;
+        relaxType           OUTLET;
+        startX              ( 2 -2.8158 -5 );
+        endX                ( 10.11 2.8158 2 );
+        orientation         ( 1 0 0 );
+    }
+}
+
+
+
+// ************************************************************************* //

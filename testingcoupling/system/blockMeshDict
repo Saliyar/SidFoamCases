@@ -1,0 +1,144 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  8
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 1;
+
+xmin -10.11; // lambda = 4.937
+xmax 10.11;
+
+ymin -2.8158;
+ymax 2.8158;
+
+zmin -5.0;
+zmax 2.0;
+
+fsmin -0.29;
+fsmax 0.29;
+
+BBmin  -3;
+
+// Lpp 1.46;
+
+
+vertices
+(
+    ($xmin $ymin $zmin)  // 0
+    ($xmax $ymin $zmin)  // 1
+    ($xmax $ymax $zmin)  // 2
+    ($xmin $ymax $zmin)  // 3
+
+    ($xmin $ymin $BBmin) // 4
+    ($xmax $ymin $BBmin) // 5
+    ($xmax $ymax $BBmin) // 6
+    ($xmin $ymax $BBmin) // 7
+
+    ($xmin $ymin $fsmin) // 8
+    ($xmax $ymin $fsmin) // 9
+    ($xmax $ymax $fsmin) // 10
+    ($xmin $ymax $fsmin) // 11
+
+    ($xmin $ymin $fsmax) // 12
+    ($xmax $ymin $fsmax) // 13
+    ($xmax $ymax $fsmax) // 14
+    ($xmin $ymax $fsmax) // 15
+
+
+    ($xmin $ymin $zmax)  // 16
+    ($xmax $ymin $zmax)  // 17
+    ($xmax $ymax $zmax)  // 18
+    ($xmin $ymax $zmax)  // 19
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) (346 1 4) simpleGrading (1 1 1)           // bottom region (256 32 41)
+    hex (4 5 6 7 8 9 10 11) (346 1 12) simpleGrading (1 1 1)         // free surface (256 32 14)
+    hex (8 9 10 11 12 13 14 15) (346 1 24) simpleGrading (1 1 1)     // top region (256 32 24)
+    hex (12 13 14 15 16 17 18 19) (346 1 7) simpleGrading (1 1 1)     // top region (256 32 24)
+);
+
+edges
+(
+);
+
+boundary
+(
+    Front
+    {
+        type empty;
+        faces
+        (
+            (1 5 4 0)
+            (4 5 9 8)
+            (8 9 13 12)
+            (12 13 17 16)
+        );
+    }
+
+    Down
+    {
+        type empty;
+        faces
+        (
+            (3 7 6 2)
+            (7 11 10 6)
+            (11 15 14 10)
+            (15 19 18 14)
+        );
+    }
+
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (0 4 7 3)
+            (4 8 11 7)
+            (8 12 15 11)
+            (12 16 19 15)
+        );
+    }
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (2 6 5 1)
+            (6 10 9 5)
+            (10 14 13 9)
+            (14 18 17 13)
+        );
+    }
+    bottom
+    {
+        type wall;
+        faces
+        (
+            (0 3 2 1)
+        );
+    }
+    atmosphere
+    {
+        type patch;
+        faces
+        (
+            (16 17 18 19)
+        );
+    }
+);
+
+
+// ************************************************************************* //
