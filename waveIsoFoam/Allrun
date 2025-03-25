@@ -1,0 +1,13 @@
+blockMesh
+renumberMesh -overwrite
+mkdir 0
+cp -pr 0.orig/* 0/
+cp -pr 0.orig/alpha.water 0/alpha.water
+waveGaugesNProbes
+setWaveParameters
+relaxationZoneLayout
+setWaveField
+waveFoam
+
+
+

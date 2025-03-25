@@ -18,17 +18,23 @@ solvers
 {
     "alpha.water.*"
     {
-        nAlphaCorr      2;
+        isoFaceTol      1e-6;
+        surfCellTol     1e-3;
+        nAlphaBounds    3;
+        snapTol         1e-12;
+        clip            true;
+        reconstructionScheme plicRDF; // plicRDF
         nAlphaSubCycles 1;
-        alphaOuterCorrectors yes;
+        nAlphaCorr      3;
         cAlpha          1;
 
-        MULESCorr       yes;
-        nLimiterIter    3;
+        MULESCorr       no;
+        nLimiterIter    5;
+        alphaApplyPrevCorr  yes;
 
         solver          smoothSolver;
         smoother        symGaussSeidel;
-        tolerance       1e-05;
+        tolerance       1e-6;
         relTol          0;
     }
 
@@ -122,7 +128,7 @@ solvers
 PIMPLE 
 { 
     momentumPredictor yes;
-    nOuterCorrectors 2; 
+    nOuterCorrectors 1; 
     nCorrectors     3;
     nNonOrthogonalCorrectors 1;
 }
@@ -131,12 +137,10 @@ relaxationFactors
 {
     fields
     {
-        alpha.water 0.7;
-        p_rgh 0.3;
     }
     equations
     {
-        ".*" 0.7;
+        ".*" 1;
     }
 }
 
