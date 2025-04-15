@@ -21,21 +21,21 @@ solvers
         nAlphaCorr      2;
         nAlphaSubCycles 1;
         alphaOuterCorrectors yes;
-        cAlpha          1;
+        cAlpha          0.5;
 
         MULESCorr       yes;
         nLimiterIter    3;
 
         solver          smoothSolver;
         smoother        symGaussSeidel;
-        tolerance       1e-05;
-        relTol          0;
+        tolerance       1e-06;
+        relTol          0.01;
     }
 
     pcorr PCG
     {
-        tolerance        1e-05;
-        relTol           0.0;
+        tolerance        1e-06;
+        relTol           0.01;
         preconditioner  DILU;
         smoother         DIC;//GaussSeidel;
         nPreSweeps       0;
@@ -50,8 +50,8 @@ solvers
 
     pcorrFinal GAMG
     {
-        tolerance        1e-05;
-        relTol           0.0;
+        tolerance        1e-06;
+        relTol           0.01;
 
         smoother         DIC;//GaussSeidel;
         nPreSweeps       0;
@@ -66,8 +66,8 @@ solvers
 
     p_rgh GAMG
     {
-        tolerance        1e-05;
-        relTol           0.0;
+        tolerance        1e-06;
+        relTol           0.01;
 
         smoother         DIC;//GaussSeidel;
         nPreSweeps       0;
@@ -82,8 +82,8 @@ solvers
 
     p_rghFinal GAMG
     {
-        tolerance        1e-05;
-        relTol           0.0;
+        tolerance        1e-06;
+        relTol           0.01;
 
         smoother         DIC;//GaussSeidel;
         nPreSweeps       0;
@@ -99,22 +99,22 @@ solvers
     U PBiCGStab
     {
         preconditioner   DILU;
-        tolerance        1e-05;
-        relTol           0;
+        tolerance        1e-06;
+        relTol           0.01;
     };
 
     UFinal PBiCG
     {
         preconditioner   DILU;
-        tolerance        1e-05;
-        relTol           0;
+        tolerance        1e-06;
+        relTol           0.01;
     };
 
     gamma PBiCG
     {
         preconditioner   DILU;
-        tolerance        1e-05;
-        relTol           0;
+        tolerance        1e-06;
+        relTol           0.01;
     };
 }
 
@@ -122,21 +122,19 @@ solvers
 PIMPLE 
 { 
     momentumPredictor yes;
-    nOuterCorrectors 2; 
-    nCorrectors     3;
-    nNonOrthogonalCorrectors 1;
+    nOuterCorrectors 1; 
+    nCorrectors     4;
+    nNonOrthogonalCorrectors 0;
 }
 
 relaxationFactors
 {
     fields
     {
-        alpha.water 0.7;
-        p_rgh 0.3;
     }
     equations
     {
-        ".*" 0.7;
+        ".*" 1;
     }
 }
 

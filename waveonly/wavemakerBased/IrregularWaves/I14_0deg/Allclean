@@ -1,0 +1,25 @@
+#!/bin/bash
+echo "Cleaning OpenFOAM case..."
+
+# Remove mesh
+rm -rf constant/polyMesh
+
+# Remove solution data
+rm -rf [1-9]*  [1-9]*/
+rm -rf gaugesVOF
+rm -rf postProcessing 
+
+# Remove processor directories (for parallel runs)
+rm -rf processor*
+
+# Remove log files
+rm -rf log.*
+rm -rf VTK
+
+# Remove post-processing data
+rm -rf postProcessing
+
+# Restore initial conditions (if needed)
+rm -rf 0
+
+echo "Case cleaned!"

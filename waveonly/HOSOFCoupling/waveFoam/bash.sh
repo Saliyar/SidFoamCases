@@ -1,7 +1,7 @@
 #!/bin/sh
 ### General options
 #BSUB -J FoamwaveTank
-#BSUB -n 4
+#BSUB -n 12
 #BSUB -R "span[ptile=4]"
 #BSUB -W 48:00
 #BSUB -R "select[avx512]"
@@ -26,8 +26,8 @@ module load OpenFoam/v2206/gcc-11.4.0-binutils-2.40-openmpi-4.1.6
 # Run OpenFOAM processes
 #setFields | tee log.setfields
 #decomposePar | tee log.decompose
-#/appl9/gcc/8.5.0-binutils-2.36.1/openmpi/4.0.7-lsf10-alma92/bin/mpirun -np 4 foamStarSwense -parallel | tee log.foam
-#mpirun -np 16 foamStar -parallel | tee log.foam
+#/appl9/gcc/8.5.0-binutils-2.36.1/openmpi/4.0.7-lsf10-alma92/bin/mpirun -np 3 foamStarSwense -parallel | tee log.foam
+#mpirun -np 3 foamStar -parallel | tee log.foam
 
 blockMesh
 renumberMesh -overwrite
@@ -39,5 +39,5 @@ setWaveParameters
 relaxationZoneLayout
 setWaveField
 decomposePar
-mpirun -np 4 setWaveField -parallel | tee log.foam
-mpirun -np 4 waveFoam -parallel | tee log.foam
+mpirun -np 12 setWaveField -parallel | tee log.foam
+mpirun -np 12 waveFoam -parallel | tee log.foam

@@ -1,0 +1,45 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+actions
+(
+
+{
+    // Select based on surface
+    name	absorber;
+    type	cellSet;
+    action	new;
+    source surfaceToCell;
+    sourceInfo
+    {
+       // file            "constant/triSurface/absorberNew.stl";
+        file            "constant/triSurface/absorberBeach_Hal3R3.stl";
+        outsidePoints   ((11 -15 0));    // definition of outside
+        includeCut	  true;              // cells cut by surface
+        includeInside   true;              // cells not on outside of surf
+        includeOutside  false;              // cells on outside of surf
+        nearDistance    -1;                 // cells with centre near surf
+                                            // (set to -1 if not used)
+        curvature       -100;                // cells within nearDistance
+       	                              // and near surf curvature
+       	                              // (set to -100 if not used)
+    }
+}
+
+);
+
+// ************************************************************************* //

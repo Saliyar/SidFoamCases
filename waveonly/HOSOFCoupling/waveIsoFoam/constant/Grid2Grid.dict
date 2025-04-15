@@ -21,11 +21,11 @@ HOSNWT
 {
     type            NWT;
     fileType        ASCII;
-    filePath        constant/modes_HOS_SWENSE.dat;
+    filePath        constant/modes_HOS_SWENSE_I5Measured.dat;
     interpolationOrder 3;
     zMeshType       meshRatio;
-    zMin            -5;
-    zMax            20;
+    zMin            -3;
+    zMax            2;
     nZMin           50;
     nZMax           50;
     zMinRatio       3;

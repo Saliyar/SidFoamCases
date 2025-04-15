@@ -14,7 +14,7 @@ rm -rf processor*
 
 # Remove log files
 rm -rf log.*
-rm -rf VTK
+rm -rf VTK*
 rm -rf Output_*
 rm -rf Error*
 # Remove post-processing data

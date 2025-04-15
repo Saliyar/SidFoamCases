@@ -19,19 +19,19 @@ surfaceElevation
     type waveGauge;
 
     pointDistribution userDefinedDistribution;
-    N 6;
-    xValues nonuniform 6(-0.15 0.025 0.15 0.3 0.45 0.6);
-    yValues nonuniform 6(0.45 0.45 0.45 0.45 0.45 0.45);
-    zValues nonuniform 6(-0.4 -0.4 -0.4 -0.4 -0.4 -0.4);
-    
+    N 2;
+    xValues nonuniform 2(-0.02 0);
+    yValues nonuniform 2(0 0);
+    zValues nonuniform 2(-0.4 -0.4);
+
 //yValues uniform -0.09;
     //zValues uniform 0.005;
     add       ( 0 0 0.8);
     axis      z;
 
     // REQURIED ONLY FOR NEW FUNCTIONOBJECT IMPLEMENTATION
-    writeControl adjustableRunTime;
-    writeInterval 0.025;
+    writeControl timeStep;
+    writeInterval 1;
 }
 
 

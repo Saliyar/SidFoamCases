@@ -30,7 +30,7 @@ Grid2GridCoeffs
 
     referenceTime       0;
 
-    referencePosition   (-16.95 -14.84 0);
+    referencePosition   (-7.06 -15 0);
 
     referenceTheta      0;
 
@@ -46,8 +46,8 @@ inletCoeffs
         relaxationScheme    Spatial;
         relaxationShape     Rectangular;
         relaxType           INLET;
-        startX              ( -10.11 0 -5 );
-        endX                ( -2 0 2 );
+        startX              ( -3.5 -1 -3 );
+        endX                ( -1.2 1 2 );
         orientation         ( 1 0 0 );
     }
 }
@@ -61,8 +61,8 @@ outletCoeffs
         relaxationScheme    Spatial;
         relaxationShape     Rectangular;
         relaxType           OUTLET;
-        startX              ( 2 0 -5 );
-        endX                ( 10.11 0 2 );
+        startX              ( 1.2 -1 -3 );
+        endX                ( 3.5 1 2 );
         orientation         ( 1 0 0 );
     }
 }

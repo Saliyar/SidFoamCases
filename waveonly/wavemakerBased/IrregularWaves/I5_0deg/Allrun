@@ -1,0 +1,19 @@
+blockMesh
+renumberMesh -overwrite
+mkdir 0
+cp -pr 0.orig/* 0/
+cp -pr 0.orig/alpha.water 0/alpha.water
+setFields
+topoSet -dict ./system/topoSetDict_absorber
+setsToZones -noFlipMap
+foamToVTK -cellZone absorber
+interIsoFoam
+
+#Run the python is simulation is completed 
+python2 postSensVOF.py
+# This will write it to gaugesVOF folder - Inside the folder, each probe is written in GaugeVOF(probe number).xy format
+#To run in parallel comment it interIsoFoam
+#decomposePar
+#mpirun -np 32 interIsoFoam -parallel > log.run
+#reconstructPar 
+
